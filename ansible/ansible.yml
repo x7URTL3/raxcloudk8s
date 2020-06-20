@@ -1,0 +1,56 @@
+---
+- name: "Provision Machine"
+  hosts: default
+  become: True
+
+  tasks:
+    - name: "docker gpg key"
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: "docker repo"
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
+        state: present
+
+    - name: "google gpg key"
+      apt_key:
+        url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+        state: present
+    
+    - name: "kubernetes repo"
+      apt_repository:
+        repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
+        state: present
+
+    - name: "apt update"
+      apt:
+        update_cache: yes
+
+    - name: "apt upgrade"
+      apt:
+        upgrade: yes
+
+    - name: "docker and kubeadm requirements"
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - gnupg-agent
+          - software-properties-common
+
+    - name: "install docker"
+      apt:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+
+    - name: "install kubeadm, kubelet and kubectl"
+      apt:
+        name:
+          - kubelet
+          - kubeadm
+          - kubectl

@@ -1,0 +1,33 @@
+{
+    "variables": {
+        "raxcloudusername": "{{env `RAX_CLOUD_USERNAME`}}",
+        "raxcloudpassword": "{{env `RAX_CLOUD_PASSWORD`}}",
+        "sourceimage": "5276ee58-b33b-43ab-be4f-427270477bee",
+        "imagename": "UbuntuDockerKubeadm"
+    },
+    "sensitive-variables": ["raxcloudusername", "raxcloudpassword"],
+    "builders": [
+        {
+            "type": "openstack",
+            "identity_endpoint": "https://identity.api.rackspacecloud.com/v2.0/",
+            "username": "{{user `raxcloudusername`}}",
+            "password": "{{user `raxcloudpassword`}}",
+            "region": "SYD",
+            "ssh_username": "root",
+            "image_name": "{{user `imagename`}}",
+            "source_image": "{{user `sourceimage`}}",
+            "flavor": "general1-1"
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "ansible",
+            "playbook_file": "../ansible/ansible.yml"
+        }
+    ],
+    "post-processors": [
+        {
+            "type": "manifest"
+        }
+    ]
+}

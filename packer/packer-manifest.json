@@ -1,0 +1,14 @@
+{
+  "builds": [
+    {
+      "name": "openstack",
+      "builder_type": "openstack",
+      "build_time": 1592660769,
+      "files": null,
+      "artifact_id": "60cbe1c3-f1f5-4aa0-b74e-ddca6f95d292",
+      "packer_run_uuid": "513f5652-1cc6-f0e4-0133-e6009d8dd520",
+      "custom_data": null
+    }
+  ],
+  "last_run_uuid": "513f5652-1cc6-f0e4-0133-e6009d8dd520"
+}
